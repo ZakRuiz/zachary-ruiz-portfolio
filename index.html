@@ -1,379 +1,908 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zachary Ruiz | Data Analytics Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zachary Ruiz | Interactive Analytics Command Deck</title>
 
-  <style>
-    :root {
-      --bg: #0f172a;
-      --card: rgba(255,255,255,0.08);
-      --border: rgba(255,255,255,0.14);
-      --text: #f8fafc;
-      --muted: #cbd5e1;
-      --accent: #38bdf8;
-      --accent2: #a78bfa;
-    }
+<style>
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
+:root{
+--bg:#050505;
+--bg2:#121212;
+--panel:rgba(255,255,255,.06);
+--border:rgba(255,255,255,.12);
+--text:#f8fafc;
+--muted:#a1a1aa;
+--red:#ef4444;
+--red2:#991b1b;
+--glow:rgba(239,68,68,.28);
+}
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(56,189,248,0.18), transparent 30rem),
-        radial-gradient(circle at top right, rgba(167,139,250,0.16), transparent 30rem),
-        linear-gradient(135deg, #0f172a 0%, #111827 100%);
-      color: var(--text);
-      line-height: 1.6;
-    }
+body.light{
+--bg:#f3f4f6;
+--bg2:#ffffff;
+--panel:rgba(255,255,255,.82);
+--border:rgba(0,0,0,.08);
+--text:#111827;
+--muted:#4b5563;
+--red:#dc2626;
+--red2:#991b1b;
+--glow:rgba(239,68,68,.18);
+}
 
-    .container {
-      width: min(1100px, 92%);
-      margin: auto;
-    }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+}
 
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(12px);
-      background: rgba(15,23,42,0.8);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:
+radial-gradient(circle at top left,var(--glow),transparent 28rem),
+linear-gradient(135deg,var(--bg),var(--bg2));
+color:var(--text);
+overflow-x:hidden;
+transition:.3s ease;
+}
 
-    .nav-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 0;
-    }
+body::before{
+content:"";
+position:fixed;
+inset:0;
+pointer-events:none;
+opacity:.18;
+background-image:
+linear-gradient(rgba(239,68,68,.12) 1px,transparent 1px),
+linear-gradient(90deg,rgba(239,68,68,.12) 1px,transparent 1px);
+background-size:42px 42px;
+animation:gridMove 20s linear infinite;
+z-index:-2;
+}
 
-    .brand {
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
+@keyframes gridMove{
+from{background-position:0 0;}
+to{background-position:84px 84px;}
+}
 
-    .nav-links {
-      display: flex;
-      gap: 18px;
-    }
+.floating-orb{
+position:fixed;
+width:300px;
+height:300px;
+border-radius:50%;
+background:radial-gradient(circle,var(--glow),transparent 70%);
+filter:blur(20px);
+pointer-events:none;
+z-index:-1;
+animation:float 10s ease-in-out infinite;
+}
 
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-    }
+.orb1{
+top:-100px;
+left:-60px;
+}
 
-    .nav-links a:hover {
-      color: white;
-    }
+.orb2{
+bottom:-120px;
+right:-80px;
+animation-delay:3s;
+}
 
-    .hero {
-      padding: 80px 0;
-    }
+@keyframes float{
+0%,100%{transform:translateY(0px);}
+50%{transform:translateY(40px);}
+}
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 30px;
-      align-items: center;
-    }
+.container{
+width:min(1180px,92%);
+margin:auto;
+}
 
-    h1 {
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      line-height: 1;
-      margin-bottom: 20px;
-    }
+nav{
+position:sticky;
+top:0;
+backdrop-filter:blur(18px);
+background:rgba(0,0,0,.55);
+border-bottom:1px solid var(--border);
+z-index:100;
+}
 
-    .gradient {
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      color: transparent;
-    }
+body.light nav{
+background:rgba(255,255,255,.72);
+}
 
-    p {
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
+.nav-inner{
+height:72px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
 
-    .buttons {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
+.brand{
+display:flex;
+align-items:center;
+gap:12px;
+font-weight:900;
+}
 
-    .btn {
-      padding: 12px 18px;
-      border-radius: 999px;
-      font-weight: bold;
-      text-decoration: none;
-      transition: 0.2s;
-    }
+.brand-badge{
+width:42px;
+height:42px;
+border-radius:14px;
+display:grid;
+place-items:center;
+background:linear-gradient(135deg,var(--red),var(--red2));
+box-shadow:0 0 30px var(--glow);
+}
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color: #08111f;
-    }
+.nav-links{
+display:flex;
+gap:20px;
+color:var(--muted);
+}
 
-    .btn-secondary {
-      border: 1px solid rgba(255,255,255,0.16);
-      background: rgba(255,255,255,0.08);
-      color: white;
-    }
+.toggle{
+cursor:pointer;
+padding:10px 14px;
+border-radius:999px;
+background:var(--panel);
+border:1px solid var(--border);
+}
 
-    .btn:hover {
-      transform: translateY(-2px);
-    }
+.hero{
+padding:90px 0 70px;
+min-height:100vh;
+display:grid;
+align-items:center;
+}
 
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 24px;
-    }
+.hero-grid{
+display:grid;
+grid-template-columns:1.1fr .9fr;
+gap:40px;
+align-items:center;
+}
 
-    .profile-circle {
-      width: 170px;
-      height: 170px;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
-      margin: 0 auto 20px;
-      border: 4px solid rgba(255,255,255,0.18);
-    }
+.eyebrow{
+display:inline-block;
+padding:9px 14px;
+border-radius:999px;
+background:rgba(239,68,68,.14);
+border:1px solid rgba(239,68,68,.3);
+margin-bottom:22px;
+font-weight:800;
+color:#fecaca;
+}
 
-    .section {
-      padding: 60px 0;
-    }
+h1{
+font-size:clamp(3rem,7vw,6.2rem);
+line-height:.95;
+letter-spacing:-3px;
+margin-bottom:22px;
+}
 
-    .section h2 {
-      font-size: 2.2rem;
-      margin-bottom: 14px;
-    }
+.gradient{
+background:linear-gradient(135deg,#fff,#f87171,#dc2626);
+-webkit-background-clip:text;
+color:transparent;
+}
 
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 20px;
-    }
+p{
+color:var(--muted);
+line-height:1.7;
+font-size:1.05rem;
+}
 
-    .project-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 22px;
-    }
+.buttons{
+display:flex;
+gap:14px;
+flex-wrap:wrap;
+margin:28px 0;
+}
 
-    .tag {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(56,189,248,0.12);
-      margin-bottom: 14px;
-      font-size: 0.8rem;
-      font-weight: bold;
-    }
+.btn{
+padding:14px 20px;
+border-radius:999px;
+font-weight:800;
+display:inline-flex;
+align-items:center;
+gap:10px;
+transition:.2s ease;
+cursor:pointer;
+}
 
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 20px;
-    }
+.btn:hover{
+transform:translateY(-3px);
+}
 
-    .skill {
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      color: var(--muted);
-    }
+.primary{
+background:linear-gradient(135deg,var(--red),var(--red2));
+box-shadow:0 12px 32px rgba(239,68,68,.35);
+}
 
-    footer {
-      text-align: center;
-      padding: 40px 0;
-      color: var(--muted);
-    }
+.secondary{
+background:var(--panel);
+border:1px solid var(--border);
+}
 
-    @media(max-width: 850px) {
-      .hero-grid,
-      .projects {
-        grid-template-columns: 1fr;
-      }
+.panel{
+background:var(--panel);
+border:1px solid var(--border);
+border-radius:32px;
+padding:26px;
+position:relative;
+overflow:hidden;
+backdrop-filter:blur(12px);
+}
 
-      .nav-inner {
-        flex-direction: column;
-        gap: 12px;
-      }
-    }
-  </style>
+.profile-wrap{
+display:grid;
+place-items:center;
+margin-bottom:24px;
+}
+
+.profile-ring{
+width:260px;
+height:260px;
+position:relative;
+display:grid;
+place-items:center;
+}
+
+.profile-ring::before{
+content:"";
+position:absolute;
+inset:0;
+border-radius:50%;
+border:1px dashed rgba(239,68,68,.55);
+animation:spin 18s linear infinite;
+}
+
+@keyframes spin{
+to{transform:rotate(360deg);}
+}
+
+.profile{
+width:220px;
+height:220px;
+border-radius:50%;
+object-fit:cover;
+border:4px solid rgba(255,255,255,.16);
+box-shadow:0 0 50px var(--glow);
+}
+
+.stats{
+display:grid;
+gap:14px;
+}
+
+.stat{
+padding:18px;
+background:rgba(255,255,255,.04);
+border:1px solid var(--border);
+border-radius:20px;
+}
+
+.stat strong{
+display:block;
+font-size:1.15rem;
+margin-bottom:5px;
+}
+
+section{
+padding:80px 0;
+}
+
+.section-head{
+max-width:760px;
+margin-bottom:32px;
+}
+
+h2{
+font-size:clamp(2rem,4vw,3.4rem);
+margin-bottom:14px;
+letter-spacing:-1px;
+}
+
+.dashboard{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+}
+
+.metric{
+background:var(--panel);
+border:1px solid var(--border);
+border-radius:26px;
+padding:24px;
+transition:.25s ease;
+}
+
+.metric:hover{
+transform:translateY(-8px);
+border-color:rgba(239,68,68,.4);
+}
+
+.metric strong{
+display:block;
+font-size:2.5rem;
+margin-bottom:10px;
+}
+
+.terminal{
+background:#050505;
+border:1px solid rgba(239,68,68,.24);
+border-radius:28px;
+padding:24px;
+font-family:Consolas,monospace;
+box-shadow:0 0 40px rgba(239,68,68,.12);
+}
+
+body.light .terminal{
+background:#111827;
+}
+
+.term-line{
+margin-bottom:10px;
+color:#d1d5db;
+}
+
+.red{
+color:#f87171;
+}
+
+.green{
+color:#4ade80;
+}
+
+.type{
+display:inline-block;
+overflow:hidden;
+white-space:nowrap;
+border-right:2px solid #f87171;
+animation:typing 5s steps(60,end) infinite,blink .7s step-end infinite;
+}
+
+@keyframes typing{
+0%{width:0;}
+45%{width:100%;}
+70%{width:100%;}
+100%{width:0;}
+}
+
+@keyframes blink{
+50%{border-color:transparent;}
+}
+
+.projects{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:22px;
+}
+
+.project{
+background:var(--panel);
+border:1px solid var(--border);
+border-radius:28px;
+padding:24px;
+cursor:pointer;
+transition:.25s ease;
+position:relative;
+overflow:hidden;
+}
+
+.project:hover{
+transform:translateY(-10px);
+border-color:rgba(239,68,68,.45);
+}
+
+.tag{
+display:inline-block;
+padding:6px 10px;
+border-radius:999px;
+background:rgba(239,68,68,.15);
+color:#fecaca;
+margin-bottom:14px;
+font-size:.8rem;
+font-weight:900;
+}
+
+.project-modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.72);
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:999;
+}
+
+.modal-content{
+width:min(760px,100%);
+background:var(--bg2);
+border:1px solid var(--border);
+border-radius:32px;
+padding:34px;
+position:relative;
+}
+
+.close{
+position:absolute;
+top:18px;
+right:18px;
+cursor:pointer;
+font-size:1.5rem;
+}
+
+.skills{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
+max-width:900px;
+}
+
+.skill{
+padding:16px 18px;
+border-left:4px solid rgba(239,68,68,.72);
+background:rgba(255,255,255,.04);
+border-radius:14px;
+font-weight:700;
+}
+
+.contact{
+padding:50px;
+border-radius:36px;
+background:
+radial-gradient(circle at top,rgba(239,68,68,.16),transparent 28rem),
+var(--panel);
+border:1px solid rgba(239,68,68,.22);
+text-align:center;
+}
+
+.resume-drawer{
+position:fixed;
+top:0;
+right:-420px;
+width:400px;
+height:100%;
+background:var(--bg2);
+border-left:1px solid var(--border);
+padding:34px;
+transition:.35s ease;
+z-index:998;
+overflow-y:auto;
+}
+
+.resume-drawer.open{
+right:0;
+}
+
+.resume-btn{
+position:fixed;
+right:18px;
+bottom:18px;
+z-index:997;
+}
+
+footer{
+padding:40px 0;
+text-align:center;
+color:var(--muted);
+}
+
+@media(max-width:980px){
+
+.hero-grid,
+.dashboard,
+.projects,
+.skills{
+grid-template-columns:1fr;
+}
+
+.nav-inner{
+height:auto;
+padding:16px 0;
+flex-direction:column;
+gap:14px;
+}
+
+}
+
+</style>
 </head>
 
 <body>
 
-<nav>
-  <div class="container nav-inner">
-    <div class="brand">Zachary Ruiz</div>
+<div class="floating-orb orb1"></div>
+<div class="floating-orb orb2"></div>
 
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </div>
+<nav>
+<div class="container nav-inner">
+
+<div class="brand">
+<div class="brand-badge">ZR</div>
+<div>Analytics Command Deck</div>
+</div>
+
+<div class="nav-links">
+<a href="#impact">Impact</a>
+<a href="#projects">Projects</a>
+<a href="#skills">Skills</a>
+<a href="#contact">Contact</a>
+<div class="toggle" onclick="toggleTheme()">☀ / 🌙</div>
+</div>
+
+</div>
 </nav>
 
 <section class="hero">
-  <div class="container hero-grid">
 
-    <div>
-      <h1>
-        Turning operations experience into
-        <span class="gradient">data-driven decisions.</span>
-      </h1>
+<div class="container hero-grid">
 
-      <p>
-        Operations-focused professional transitioning into data analytics with experience leading teams, managing high-volume workflows, analyzing performance metrics, and improving business operations.
-      </p>
+<div>
 
-      <div class="buttons">
-        <a class="btn btn-primary" href="#projects">View Projects</a>
+<div class="eyebrow">
+Operations Leader → Data Analyst
+</div>
 
-        <a class="btn btn-secondary"
-           href="https://mail.google.com/mail/?view=cm&fs=1&to=ZacharyRuiz.DA@gmail.com">
-           Email Me
-        </a>
+<h1>
+Turning operational chaos into
+<span class="gradient">clear decisions.</span>
+</h1>
 
-        <a class="btn btn-secondary"
-           href="https://www.linkedin.com/in/zachary-ruiz-da/"
-           target="_blank">
-           LinkedIn
-        </a>
-      </div>
+<p>
+Operations-focused professional transitioning into analytics with real-world experience managing labor, inventory, cost control, KPIs, and high-volume workflows.
+</p>
 
-      <p>
-        Recently completed the Google Data Analytics Certificate through Merit America with hands-on experience in SQL, Excel, data cleaning, visualization, and reporting.
-      </p>
-    </div>
+<div class="buttons">
+<a class="btn primary" href="#projects">Launch Projects</a>
+<a class="btn secondary" onclick="openResume()">Open Resume</a>
+</div>
 
-    <div class="card">
+</div>
 
-      <img class="profile-circle"
-           src="headshot.jpg"
-           alt="Headshot of Zachary Ruiz">
+<div class="panel">
 
-      <p style="text-align:center;">
-        Aspiring Data Analyst with a business-minded approach and strong operations background.
-      </p>
+<div class="profile-wrap">
 
-    </div>
+<div class="profile-ring">
+<img class="profile" src="headshot.jpg" alt="Headshot">
+</div>
 
-  </div>
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<strong>Business-Minded Analytics</strong>
+<p>Connecting data to real operational decisions.</p>
+</div>
+
+<div class="stat">
+<strong>Current Focus</strong>
+<p>SQL • Excel • Reporting • Visualization</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-<section class="section" id="about">
-  <div class="container">
+<section id="impact">
 
-    <h2>About Me</h2>
+<div class="container">
 
-    <p>
-      My background is in food service operations, where I gained experience managing labor, inventory, budgets, food costs, and team performance in fast-paced environments.
-    </p>
+<div class="section-head">
+<h2>Operations dashboard.</h2>
+<p>Built from real operational experience managing teams, service volume, labor, and costs.</p>
+</div>
 
-    <p>
-      As I transition into data analytics, I’m focused on combining real-world business experience with technical skills like SQL, Excel, data visualization, and reporting to help organizations make smarter decisions.
-    </p>
+<div class="dashboard">
 
-  </div>
+<div class="metric">
+<strong>2,500+</strong>
+<p>Students served daily</p>
+</div>
+
+<div class="metric">
+<strong>$2M</strong>
+<p>Annual operational volume</p>
+</div>
+
+<div class="metric">
+<strong>130</strong>
+<p>Staff supported</p>
+</div>
+
+<div class="metric">
+<strong>28%</strong>
+<p>Yearly food cost maintained</p>
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-<section class="section" id="projects">
-  <div class="container">
+<section>
 
-    <h2>Projects</h2>
+<div class="container">
 
-    <div class="projects">
+<div class="section-head">
+<h2>Live SQL terminal.</h2>
+</div>
 
-      <div class="project-card">
-        <div class="tag">Coming Soon</div>
-        <h3>SQL Project</h3>
-        <p>Business-focused SQL analysis project using filtering, joins, and reporting techniques.</p>
-      </div>
+<div class="terminal">
 
-      <div class="project-card">
-        <div class="tag">Coming Soon</div>
-        <h3>Capstone Project</h3>
-        <p>End-to-end data analytics project from business question to recommendation.</p>
-      </div>
+<div class="term-line"><span class="red">SELECT</span> business_problem, insight, recommendation</div>
+<div class="term-line"><span class="red">FROM</span> operations_experience</div>
+<div class="term-line"><span class="red">WHERE</span> decisions = <span class="green">'data-driven'</span>;</div>
 
-      <div class="project-card">
-        <div class="tag">Coming Soon</div>
-        <h3>Excel Project</h3>
-        <p>Spreadsheet project using pivot tables, charts, formulas, and business reporting.</p>
-      </div>
+<br>
 
-    </div>
+<div class="term-line green">
+Query complete. 4 insights returned.
+</div>
 
-  </div>
+<div class="term-line">
+<span class="type">
+Insight: Strong analytics comes from understanding both data and business operations.
+</span>
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-<section class="section" id="skills">
-  <div class="container">
+<section id="projects">
 
-    <h2>Skills</h2>
+<div class="container">
 
-    <div class="skills">
-      <div class="skill">Excel</div>
-      <div class="skill">SQL</div>
-      <div class="skill">Data Cleaning</div>
-      <div class="skill">Data Visualization</div>
-      <div class="skill">Business Reporting</div>
-      <div class="skill">Operations Analysis</div>
-      <div class="skill">Cost Control</div>
-      <div class="skill">Leadership</div>
-      <div class="skill">Problem Solving</div>
-    </div>
+<div class="section-head">
+<h2>Interactive project launch bay.</h2>
+<p>Click any project card to open expanded details.</p>
+</div>
 
-  </div>
+<div class="projects">
+
+<div class="project" onclick="openModal('sql')">
+
+<div class="tag">Coming Soon</div>
+
+<h3>SQL Project</h3>
+
+<p>
+Business reporting and query analysis project.
+</p>
+
+</div>
+
+<div class="project" onclick="openModal('capstone')">
+
+<div class="tag">Coming Soon</div>
+
+<h3>Capstone Project</h3>
+
+<p>
+End-to-end business analytics recommendations.
+</p>
+
+</div>
+
+<div class="project" onclick="openModal('excel')">
+
+<div class="tag">Coming Soon</div>
+
+<h3>Excel Project</h3>
+
+<p>
+Pivot tables, dashboards, and reporting visuals.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-<section class="section" id="contact">
-  <div class="container">
+<section id="skills">
 
-    <h2>Contact</h2>
+<div class="container">
 
-    <p>
-      Open to entry-level data analytics, reporting analyst, business analyst, and operations analyst opportunities.
-    </p>
+<div class="section-head">
+<h2>Skill matrix.</h2>
+</div>
 
-    <div class="buttons">
+<div class="skills">
 
-      <a class="btn btn-primary"
-         href="https://mail.google.com/mail/?view=cm&fs=1&to=ZacharyRuiz.DA@gmail.com">
-         ZacharyRuiz.DA@gmail.com
-      </a>
+<div class="skill">SQL</div>
+<div class="skill">Excel</div>
+<div class="skill">Data Cleaning</div>
+<div class="skill">Visualization</div>
+<div class="skill">Reporting</div>
+<div class="skill">Leadership</div>
+<div class="skill">Inventory Management</div>
+<div class="skill">Cost Control</div>
 
-      <a class="btn btn-secondary"
-         href="https://www.linkedin.com/in/zachary-ruiz-da/"
-         target="_blank">
-         LinkedIn Profile
-      </a>
+</div>
 
-    </div>
+</div>
 
-  </div>
+</section>
+
+<section id="contact">
+
+<div class="container">
+
+<div class="contact">
+
+<h2>Ready to connect?</h2>
+
+<p>
+Open to entry-level analyst and operations analytics opportunities.
+</p>
+
+<div class="buttons" style="justify-content:center;">
+
+<a class="btn primary"
+href="https://mail.google.com/mail/?view=cm&fs=1&to=ZacharyRuiz.DA@gmail.com">
+Email Me
+</a>
+
+<a class="btn secondary"
+href="https://www.linkedin.com/"
+target="_blank">
+LinkedIn
+</a>
+
+</div>
+
+</div>
+
+</div>
+
 </section>
 
 <footer>
-  Built by Zachary Ruiz • Data Analytics Portfolio
+Built by Zachary Ruiz • Interactive Analytics Portfolio
 </footer>
+
+<div class="resume-btn">
+<div class="btn primary" onclick="openResume()">
+Resume
+</div>
+</div>
+
+<div class="resume-drawer" id="resumeDrawer">
+
+<h2>Professional Summary</h2>
+
+<br>
+
+<p>
+Business-minded professional with 10+ years of experience leading high-volume operations, managing costs, improving efficiency, and supporting team performance in fast-paced environments.
+</p>
+
+<br>
+
+<p>
+Currently completing the Google Data Analytics Certificate through Merit America with hands-on training in data analysis, visualization, and reporting.
+</p>
+
+<br>
+
+<p>
+Bringing a strong background in problem-solving, operational planning, and using data to support smarter business decisions.
+</p>
+
+<br>
+
+<h3>Technical Skills</h3>
+
+<br>
+
+<p>
+• Data Analysis, Data Cleaning, Data Visualization, Reporting, Dashboard Interpretation, Operational Analytics<br>
+• Excel, Google Sheets, SQL, Tableau, Google Workspace<br>
+• KPI Tracking, Inventory Management, Cost Control, Forecasting, Workflow Optimization, Team Leadership
+</p>
+
+<br>
+
+<h3>Education & Certifications</h3>
+
+<br>
+
+<p>
+<strong>Google Data Analytics Certificate</strong> | Merit America (Virtual) | In Progress<br>
+• Developed skills in data collection, transformation, organization, and visualization<br>
+• Completed hands-on labs and a capstone project covering the data analysis lifecycle<br>
+• Applied project-based learning using Google Workspace tools<br><br>
+
+<strong>Wilbur Wright College</strong> | General Studies<br>
+<strong>City of Chicago Food Service Manager Certification</strong>
+</p>
+
+<br>
+
+<div class="btn secondary" onclick="closeResume()">
+Close
+</div>
+
+</div>
+
+<div class="project-modal" id="modal">
+
+<div class="modal-content">
+
+<div class="close" onclick="closeModal()">✕</div>
+
+<h2 id="modalTitle">Project</h2>
+
+<br>
+
+<p id="modalText">
+Project information.
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+function toggleTheme(){
+document.body.classList.toggle('light');
+}
+
+function openResume(){
+document.getElementById('resumeDrawer').classList.add('open');
+}
+
+function closeResume(){
+document.getElementById('resumeDrawer').classList.remove('open');
+}
+
+function openModal(type){
+
+const modal=document.getElementById('modal');
+const title=document.getElementById('modalTitle');
+const text=document.getElementById('modalText');
+
+if(type==='sql'){
+title.innerHTML='SQL Project';
+text.innerHTML='A business-focused SQL reporting project using filtering, joins, aggregation, and operational analysis.';
+}
+
+if(type==='capstone'){
+title.innerHTML='Capstone Project';
+text.innerHTML='An end-to-end analytics project focused on identifying trends, building visualizations, and creating business recommendations.';
+}
+
+if(type==='excel'){
+title.innerHTML='Excel Project';
+text.innerHTML='Spreadsheet analysis project using pivot tables, formulas, charts, and dashboard reporting.';
+}
+
+modal.style.display='flex';
+}
+
+function closeModal(){
+document.getElementById('modal').style.display='none';
+}
+
+</script>
 
 </body>
 </html>
