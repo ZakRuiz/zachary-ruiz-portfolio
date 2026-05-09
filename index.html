@@ -142,29 +142,25 @@ box-shadow:0 0 32px rgba(56,189,248,.28);
 display:flex;
 gap:12px;
 align-items:center;
+color:var(--muted);
 }
 
 .nav-links a{
-padding:10px 16px;
+padding:10px 15px;
 border-radius:999px;
-background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.08);
+background:rgba(255,255,255,.045);
+border:1px solid rgba(255,255,255,.075);
 color:var(--muted);
 font-weight:700;
-transition:.25s ease;
-backdrop-filter:blur(8px);
+transition:.24s ease;
 }
 
 .nav-links a:hover{
 color:white;
-border-color:rgba(56,189,248,.4);
-background:rgba(56,189,248,.12);
+border-color:rgba(56,189,248,.35);
+background:rgba(56,189,248,.11);
 transform:translateY(-2px);
-box-shadow:0 8px 24px rgba(56,189,248,.12);
-}
-
-.nav-links a:hover{
-color:white;
+box-shadow:0 8px 24px rgba(56,189,248,.10);
 }
 
 .toggle{
@@ -531,6 +527,120 @@ gap:14px;
 
 }
 
+
+
+
+
+/* Mini Data Break Tetris */
+.tetris-modal{
+position:fixed;
+inset:0;
+background:rgba(2,6,23,.84);
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:1000;
+backdrop-filter:blur(10px);
+}
+
+.tetris-content{
+width:min(680px,100%);
+background:
+radial-gradient(circle at top left,rgba(56,189,248,.16),transparent 24rem),
+radial-gradient(circle at bottom right,rgba(34,197,94,.12),transparent 22rem),
+var(--bg2);
+border:1px solid rgba(56,189,248,.24);
+border-radius:32px;
+padding:26px;
+box-shadow:0 28px 90px rgba(0,0,0,.55);
+position:relative;
+}
+
+.tetris-header{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+gap:18px;
+margin-bottom:16px;
+}
+
+.tetris-close{
+cursor:pointer;
+font-size:1.35rem;
+background:var(--panel);
+border:1px solid var(--border);
+border-radius:999px;
+width:38px;
+height:38px;
+display:grid;
+place-items:center;
+color:var(--text);
+}
+
+.tetris-scoreboard{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin:14px 0 18px;
+}
+
+.tetris-score{
+padding:12px;
+border-radius:16px;
+background:rgba(255,255,255,.045);
+border:1px solid var(--border);
+text-align:center;
+}
+
+.tetris-score span{
+display:block;
+font-size:.78rem;
+color:var(--muted);
+font-weight:800;
+text-transform:uppercase;
+letter-spacing:.08em;
+}
+
+.tetris-score strong{
+display:block;
+font-size:1.45rem;
+margin-top:3px;
+}
+
+#tetrisCanvas{
+width:100%;
+max-width:340px;
+aspect-ratio:1/1.8;
+display:block;
+margin:0 auto;
+border-radius:22px;
+background:
+linear-gradient(rgba(56,189,248,.08) 1px,transparent 1px),
+linear-gradient(90deg,rgba(56,189,248,.08) 1px,transparent 1px),
+#07111f;
+background-size:28px 28px;
+border:1px solid rgba(56,189,248,.24);
+box-shadow:
+inset 0 0 26px rgba(56,189,248,.08),
+0 18px 42px rgba(0,0,0,.28);
+}
+
+.tetris-actions{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+justify-content:center;
+margin-top:18px;
+}
+
+.tetris-note{
+font-size:.9rem;
+text-align:center;
+margin-top:14px;
+color:var(--muted);
+}
+
 </style>
 </head>
 
@@ -582,7 +692,8 @@ Operations-focused professional transitioning into analytics with real-world exp
 
 <div class="buttons">
 <a class="btn primary" href="#projects">View Projects</a>
-<a class="btn secondary" onclick="openResume()">Resume</a>
+<a class="btn secondary" onclick="openResume()">About Me</a>
+<a class="btn secondary" onclick="openTetris()">Mini Data Break</a>
 </div>
 
 </div>
@@ -797,15 +908,70 @@ LinkedIn
 
 </section>
 
+
+
+
+<canvas id="pongCanvas" width="560" height="350"></canvas>
+
+
+
+
+
+
+
+</div>
+
+</div>
+
+
+
+<div class="tetris-modal" id="tetrisModal">
+
+<div class="tetris-content">
+
+<div class="tetris-header">
+<div>
+<h2>Mini Data Break</h2>
+<p>Classic arcade mode built into the command deck.</p>
+</div>
+<div class="tetris-close" onclick="closeTetris()">✕</div>
+</div>
+
+<div class="tetris-scoreboard">
+<div class="tetris-score">
+<span>Score</span>
+<strong id="tetrisScore">0</strong>
+</div>
+<div class="tetris-score">
+<span>Lines</span>
+<strong id="tetrisLines">0</strong>
+</div>
+<div class="tetris-score">
+<span>Best</span>
+<strong id="tetrisBest">0</strong>
+</div>
+</div>
+
+<canvas id="tetrisCanvas" width="300" height="540"></canvas>
+
+<div class="tetris-actions">
+<button class="btn secondary" onclick="closeTetris()">Close</button>
+</div>
+
+<p class="tetris-note">
+Controls: Arrow keys move and rotate blocks. Space drops instantly.
+</p>
+
+</div>
+
+</div>
+
+
 <footer>
 Built by Zachary Ruiz • Operations Intelligence Portfolio
 </footer>
 
-<div class="resume-btn">
-<div class="btn primary" onclick="openResume()">
-Resume
-</div>
-</div>
+
 
 <div class="resume-drawer" id="resumeDrawer">
 
@@ -825,36 +991,16 @@ Currently completing the Google Data Analytics Certificate through Merit America
 
 <br>
 
-<p>
-Bringing a strong background in problem-solving, operational planning, and using data to support smarter business decisions.
-</p>
-
-<br>
-
 <h3>Technical Skills</h3>
 
 <br>
 
 <p>
-• Data Analysis, Data Cleaning, Data Visualization, Reporting, Dashboard Interpretation, Operational Analytics<br>
-• Excel, Google Sheets, SQL, Tableau, Google Workspace<br>
-• KPI Tracking, Inventory Management, Cost Control, Forecasting, Workflow Optimization, Team Leadership
-</p>
-
-<br>
-
-<h3>Education & Certifications</h3>
-
-<br>
-
-<p>
-<strong>Google Data Analytics Certificate</strong> | Merit America (Virtual) | In Progress<br>
-• Developed skills in data collection, transformation, organization, and visualization<br>
-• Completed hands-on labs and a capstone project covering the data analysis lifecycle<br>
-• Applied project-based learning using Google Workspace tools<br><br>
-
-<strong>Wilbur Wright College</strong> | General Studies<br>
-<strong>City of Chicago Food Service Manager Certification</strong>
+• Data Analysis<br>
+• SQL & Excel<br>
+• Dashboard Reporting<br>
+• KPI Tracking<br>
+• Workflow Optimization
 </p>
 
 <br>
@@ -922,6 +1068,204 @@ modal.style.display='flex';
 function closeModal(){
 document.getElementById('modal').style.display='none';
 }
+
+
+
+let tetrisCanvas;
+let tetrisCtx;
+let tetrisLoop;
+let tetrisBoard;
+let tetrisPiece;
+let tetrisScore = 0;
+let tetrisLines = 0;
+let tetrisBest = Number(localStorage.getItem("tetrisBest") || 0);
+
+const COLS = 10;
+const ROWS = 18;
+const BLOCK = 30;
+
+const SHAPES = [
+[[1,1,1,1]],
+[[1,1],[1,1]],
+[[0,1,0],[1,1,1]],
+[[1,1,0],[0,1,1]],
+[[0,1,1],[1,1,0]],
+[[1,0,0],[1,1,1]],
+[[0,0,1],[1,1,1]]
+];
+
+const COLORS = [
+"#38bdf8",
+"#22c55e",
+"#14b8a6",
+"#60a5fa",
+"#10b981",
+"#34d399",
+"#2dd4bf"
+];
+
+function openTetris(){
+document.getElementById("tetrisModal").style.display="flex";
+initTetris();
+restartTetris();
+}
+
+function closeTetris(){
+document.getElementById("tetrisModal").style.display="none";
+clearInterval(tetrisLoop);
+}
+
+function initTetris(){
+tetrisCanvas=document.getElementById("tetrisCanvas");
+tetrisCtx=tetrisCanvas.getContext("2d");
+restartTetris();
+}
+
+function restartTetris(){
+clearInterval(tetrisLoop);
+tetrisBoard=Array.from({length:ROWS},()=>Array(COLS).fill(0));
+tetrisScore=0;
+tetrisLines=0;
+spawnPiece();
+updateTetrisUI();
+drawTetris();
+tetrisLoop=setInterval(updateTetris,500);
+}
+
+function spawnPiece(){
+const index=Math.floor(Math.random()*SHAPES.length);
+tetrisPiece={
+shape:SHAPES[index],
+color:COLORS[index],
+x:3,
+y:0
+};
+}
+
+function drawCell(x,y,color){
+tetrisCtx.fillStyle=color;
+tetrisCtx.fillRect(x*BLOCK,y*BLOCK,BLOCK-2,BLOCK-2);
+}
+
+function drawTetris(){
+tetrisCtx.fillStyle="#07111f";
+tetrisCtx.fillRect(0,0,tetrisCanvas.width,tetrisCanvas.height);
+
+for(let y=0;y<ROWS;y++){
+for(let x=0;x<COLS;x++){
+if(tetrisBoard[y][x]){
+drawCell(x,y,tetrisBoard[y][x]);
+}
+}
+}
+
+tetrisPiece.shape.forEach((row,dy)=>{
+row.forEach((val,dx)=>{
+if(val){
+drawCell(tetrisPiece.x+dx,tetrisPiece.y+dy,tetrisPiece.color);
+}
+});
+});
+}
+
+function collide(){
+return tetrisPiece.shape.some((row,dy)=>
+row.some((val,dx)=>{
+if(!val)return false;
+let nx=tetrisPiece.x+dx;
+let ny=tetrisPiece.y+dy;
+return nx<0||nx>=COLS||ny>=ROWS||(ny>=0&&tetrisBoard[ny][nx]);
+})
+);
+}
+
+function merge(){
+tetrisPiece.shape.forEach((row,dy)=>{
+row.forEach((val,dx)=>{
+if(val){
+tetrisBoard[tetrisPiece.y+dy][tetrisPiece.x+dx]=tetrisPiece.color;
+}
+});
+});
+}
+
+function clearLines(){
+let lines=0;
+outer:
+for(let y=ROWS-1;y>=0;y--){
+for(let x=0;x<COLS;x++){
+if(!tetrisBoard[y][x])continue outer;
+}
+tetrisBoard.splice(y,1);
+tetrisBoard.unshift(Array(COLS).fill(0));
+lines++;
+y++;
+}
+if(lines){
+tetrisLines+=lines;
+tetrisScore+=lines*100;
+if(tetrisScore>tetrisBest){
+tetrisBest=tetrisScore;
+localStorage.setItem("tetrisBest",tetrisBest);
+}
+updateTetrisUI();
+}
+}
+
+function updateTetris(){
+tetrisPiece.y++;
+if(collide()){
+tetrisPiece.y--;
+merge();
+clearLines();
+spawnPiece();
+if(collide()){
+restartTetris();
+}
+}
+drawTetris();
+}
+
+function rotate(shape){
+return shape[0].map((_,i)=>shape.map(row=>row[i]).reverse());
+}
+
+function updateTetrisUI(){
+document.getElementById("tetrisScore").textContent=tetrisScore;
+document.getElementById("tetrisLines").textContent=tetrisLines;
+document.getElementById("tetrisBest").textContent=tetrisBest;
+}
+
+document.addEventListener("keydown",e=>{
+const open=document.getElementById("tetrisModal")?.style.display==="flex";
+if(!open)return;
+
+if(e.key==="ArrowLeft"){
+tetrisPiece.x--;
+if(collide())tetrisPiece.x++;
+}
+if(e.key==="ArrowRight"){
+tetrisPiece.x++;
+if(collide())tetrisPiece.x--;
+}
+if(e.key==="ArrowDown"){
+tetrisPiece.y++;
+if(collide())tetrisPiece.y--;
+}
+if(e.key==="ArrowUp"){
+const rotated=rotate(tetrisPiece.shape);
+const old=tetrisPiece.shape;
+tetrisPiece.shape=rotated;
+if(collide())tetrisPiece.shape=old;
+}
+if(e.key===" "){
+while(!collide()){
+tetrisPiece.y++;
+}
+tetrisPiece.y--;
+}
+drawTetris();
+});
 
 </script>
 
