@@ -4,621 +4,376 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zachary Ruiz | Data Analytics Portfolio</title>
-  <meta name="description" content="Portfolio website for Zachary Ruiz, aspiring data analyst with operations leadership experience." />
+
   <style>
     :root {
       --bg: #0f172a;
-      --bg-soft: #111c33;
-      --card: rgba(255, 255, 255, 0.08);
-      --card-border: rgba(255, 255, 255, 0.14);
+      --card: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.14);
       --text: #f8fafc;
       --muted: #cbd5e1;
       --accent: #38bdf8;
-      --accent-two: #a78bfa;
-      --accent-three: #22c55e;
-      --white: #ffffff;
-      --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
-      --radius: 24px;
+      --accent2: #a78bfa;
     }
 
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
       scroll-behavior: smooth;
     }
 
     body {
       font-family: Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 32rem),
-        radial-gradient(circle at top right, rgba(167, 139, 250, 0.20), transparent 30rem),
-        linear-gradient(135deg, #0f172a 0%, #111827 48%, #0b1224 100%);
+        radial-gradient(circle at top left, rgba(56,189,248,0.18), transparent 30rem),
+        radial-gradient(circle at top right, rgba(167,139,250,0.16), transparent 30rem),
+        linear-gradient(135deg, #0f172a 0%, #111827 100%);
       color: var(--text);
       line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
     }
 
     .container {
-      width: min(1120px, 92%);
-      margin: 0 auto;
+      width: min(1100px, 92%);
+      margin: auto;
     }
 
-    .nav {
+    nav {
       position: sticky;
       top: 0;
-      z-index: 50;
-      backdrop-filter: blur(16px);
-      background: rgba(15, 23, 42, 0.74);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+      z-index: 10;
+      backdrop-filter: blur(12px);
+      background: rgba(15,23,42,0.8);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
     .nav-inner {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       padding: 18px 0;
     }
 
     .brand {
-      font-weight: 800;
-      letter-spacing: 0.4px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-mark {
-      width: 38px;
-      height: 38px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--accent), var(--accent-two));
-      box-shadow: 0 12px 28px rgba(56, 189, 248, 0.24);
-      color: #08111f;
-      font-weight: 900;
+      font-size: 1.2rem;
+      font-weight: bold;
     }
 
     .nav-links {
       display: flex;
-      align-items: center;
       gap: 18px;
+    }
+
+    .nav-links a {
       color: var(--muted);
-      font-size: 0.95rem;
+      text-decoration: none;
     }
 
     .nav-links a:hover {
-      color: var(--white);
+      color: white;
     }
 
     .hero {
-      padding: 86px 0 58px;
+      padding: 80px 0;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 36px;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 30px;
       align-items: center;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: #dbeafe;
-      background: rgba(56, 189, 248, 0.12);
-      border: 1px solid rgba(56, 189, 248, 0.28);
-      border-radius: 999px;
-      padding: 8px 14px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      margin-bottom: 22px;
-    }
-
-    .pulse {
-      width: 9px;
-      height: 9px;
-      border-radius: 999px;
-      background: var(--accent-three);
-      box-shadow: 0 0 0 7px rgba(34, 197, 94, 0.14);
     }
 
     h1 {
-      font-size: clamp(2.6rem, 6vw, 5rem);
-      line-height: 1.02;
-      letter-spacing: -2px;
-      margin-bottom: 22px;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: 1;
+      margin-bottom: 20px;
     }
 
-    .gradient-text {
-      background: linear-gradient(135deg, var(--accent), var(--accent-two));
+    .gradient {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
       -webkit-background-clip: text;
-      background-clip: text;
       color: transparent;
     }
 
-    .hero p {
+    p {
       color: var(--muted);
-      font-size: 1.12rem;
-      max-width: 700px;
-      margin-bottom: 28px;
+      margin-bottom: 20px;
     }
 
     .buttons {
       display: flex;
-      flex-wrap: wrap;
       gap: 14px;
-      margin-bottom: 28px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
     }
 
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+    .btn {
+      padding: 12px 18px;
       border-radius: 999px;
-      padding: 13px 18px;
-      font-weight: 800;
-      transition: transform 0.2s ease, background 0.2s ease;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.2s;
     }
 
-    .button:hover {
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #08111f;
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.08);
+      color: white;
+    }
+
+    .btn:hover {
       transform: translateY(-2px);
-    }
-
-    .button.primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent-two));
-      color: #08111f;
-    }
-
-    .button.secondary {
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--white);
-    }
-
-    .hero-card {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 26px;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: -2px;
-      background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(167, 139, 250, 0.12), transparent);
-      pointer-events: none;
-    }
-
-    .profile-circle {
-      width: 148px;
-      height: 148px;
-      border-radius: 50%;
-      margin: 0 auto 22px;
-      border: 3px solid rgba(255, 255, 255, 0.22);
-      background:
-        linear-gradient(135deg, rgba(56, 189, 248, 0.80), rgba(167, 139, 250, 0.84)),
-        url("headshot.jpg");
-      background-size: cover;
-      background-position: center;
-      display: grid;
-      place-items: center;
-      font-size: 3rem;
-      font-weight: 900;
-      color: #08111f;
-    }
-
-    .profile-note {
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.96rem;
-      margin-bottom: 22px;
-    }
-
-    .stats {
-      display: grid;
-      gap: 12px;
-    }
-
-    .stat {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 18px;
-      padding: 16px;
-    }
-
-    .stat strong {
-      display: block;
-      color: var(--white);
-      font-size: 1.24rem;
-      line-height: 1.2;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    section {
-      padding: 64px 0;
-    }
-
-    .section-heading {
-      margin-bottom: 24px;
-    }
-
-    .section-heading h2 {
-      font-size: clamp(1.9rem, 4vw, 3rem);
-      letter-spacing: -1px;
-      margin-bottom: 10px;
-    }
-
-    .section-heading p {
-      color: var(--muted);
-      max-width: 760px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
     }
 
     .card {
       background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    .profile-circle {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto 20px;
+      border: 4px solid rgba(255,255,255,0.18);
+    }
+
+    .section {
+      padding: 60px 0;
+    }
+
+    .section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
       padding: 22px;
-      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.20);
-    }
-
-    .card h3 {
-      margin-bottom: 8px;
-      font-size: 1.18rem;
-    }
-
-    .card p {
-      color: var(--muted);
-      font-size: 0.98rem;
     }
 
     .tag {
-      display: inline-flex;
-      margin-bottom: 16px;
+      display: inline-block;
       padding: 6px 10px;
       border-radius: 999px;
-      color: #dbeafe;
-      background: rgba(56, 189, 248, 0.12);
-      border: 1px solid rgba(56, 189, 248, 0.24);
-      font-size: 0.82rem;
-      font-weight: 800;
+      background: rgba(56,189,248,0.12);
+      margin-bottom: 14px;
+      font-size: 0.8rem;
+      font-weight: bold;
     }
 
     .skills {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 18px;
+      margin-top: 20px;
     }
 
     .skill {
-      padding: 9px 12px;
+      padding: 8px 12px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
       color: var(--muted);
-      font-weight: 700;
-      font-size: 0.92rem;
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 24px;
-      align-items: stretch;
-    }
-
-    .about-panel {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: var(--radius);
-      padding: 26px;
-    }
-
-    .about-panel p {
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-
-    .timeline {
-      display: grid;
-      gap: 14px;
-    }
-
-    .timeline-item {
-      padding: 16px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    .timeline-item strong {
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .timeline-item span {
-      color: var(--muted);
-      font-size: 0.96rem;
-    }
-
-    .contact {
-      text-align: center;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 32px;
-      padding: 44px 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .contact h2 {
-      font-size: clamp(1.9rem, 4vw, 3rem);
-      margin-bottom: 12px;
-    }
-
-    .contact p {
-      color: var(--muted);
-      max-width: 650px;
-      margin: 0 auto 24px;
     }
 
     footer {
-      color: var(--muted);
       text-align: center;
-      padding: 30px 0 44px;
-      font-size: 0.92rem;
+      padding: 40px 0;
+      color: var(--muted);
     }
 
-    @media (max-width: 840px) {
+    @media(max-width: 850px) {
       .hero-grid,
-      .about-grid,
-      .cards {
+      .projects {
         grid-template-columns: 1fr;
       }
 
       .nav-inner {
-        align-items: flex-start;
-        gap: 14px;
         flex-direction: column;
-      }
-
-      .nav-links {
-        flex-wrap: wrap;
-      }
-
-      .hero {
-        padding-top: 58px;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .nav-links {
         gap: 12px;
-        font-size: 0.88rem;
-      }
-
-      .hero-card,
-      .card,
-      .about-panel {
-        padding: 18px;
-      }
-
-      .buttons {
-        flex-direction: column;
-      }
-
-      .button {
-        width: 100%;
       }
     }
   </style>
 </head>
+
 <body>
-  <nav class="nav">
-    <div class="container nav-inner">
-      <a href="#home" class="brand">
-        <span class="brand-mark">ZR</span>
-        <span>Zachary Ruiz</span>
+
+<nav>
+  <div class="container nav-inner">
+    <div class="brand">Zachary Ruiz</div>
+
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container hero-grid">
+
+    <div>
+      <h1>
+        Turning operations experience into
+        <span class="gradient">data-driven decisions.</span>
+      </h1>
+
+      <p>
+        Operations-focused professional transitioning into data analytics with experience leading teams, managing high-volume workflows, analyzing performance metrics, and improving business operations.
+      </p>
+
+      <div class="buttons">
+        <a class="btn btn-primary" href="#projects">View Projects</a>
+
+        <a class="btn btn-secondary"
+           href="https://mail.google.com/mail/?view=cm&fs=1&to=ZacharyRuiz.DA@gmail.com">
+           Email Me
+        </a>
+
+        <a class="btn btn-secondary"
+           href="https://www.linkedin.com/"
+           target="_blank">
+           LinkedIn
+        </a>
+      </div>
+
+      <p>
+        Recently completed the Google Data Analytics Certificate through Merit America with hands-on experience in SQL, Excel, data cleaning, visualization, and reporting.
+      </p>
+    </div>
+
+    <div class="card">
+
+      <img class="profile-circle"
+           src="headshot.jpg"
+           alt="Headshot of Zachary Ruiz">
+
+      <p style="text-align:center;">
+        Aspiring Data Analyst with a business-minded approach and strong operations background.
+      </p>
+
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="container">
+
+    <h2>About Me</h2>
+
+    <p>
+      My background is in food service operations, where I gained experience managing labor, inventory, budgets, food costs, and team performance in fast-paced environments.
+    </p>
+
+    <p>
+      As I transition into data analytics, I’m focused on combining real-world business experience with technical skills like SQL, Excel, data visualization, and reporting to help organizations make smarter decisions.
+    </p>
+
+  </div>
+</section>
+
+<section class="section" id="projects">
+  <div class="container">
+
+    <h2>Projects</h2>
+
+    <div class="projects">
+
+      <div class="project-card">
+        <div class="tag">Coming Soon</div>
+        <h3>SQL Project</h3>
+        <p>Business-focused SQL analysis project using filtering, joins, and reporting techniques.</p>
+      </div>
+
+      <div class="project-card">
+        <div class="tag">Coming Soon</div>
+        <h3>Capstone Project</h3>
+        <p>End-to-end data analytics project from business question to recommendation.</p>
+      </div>
+
+      <div class="project-card">
+        <div class="tag">Coming Soon</div>
+        <h3>Excel Project</h3>
+        <p>Spreadsheet project using pivot tables, charts, formulas, and business reporting.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="skills">
+  <div class="container">
+
+    <h2>Skills</h2>
+
+    <div class="skills">
+      <div class="skill">Excel</div>
+      <div class="skill">SQL</div>
+      <div class="skill">Data Cleaning</div>
+      <div class="skill">Data Visualization</div>
+      <div class="skill">Business Reporting</div>
+      <div class="skill">Operations Analysis</div>
+      <div class="skill">Cost Control</div>
+      <div class="skill">Leadership</div>
+      <div class="skill">Problem Solving</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="container">
+
+    <h2>Contact</h2>
+
+    <p>
+      Open to entry-level data analytics, reporting analyst, business analyst, and operations analyst opportunities.
+    </p>
+
+    <div class="buttons">
+
+      <a class="btn btn-primary"
+         href="https://mail.google.com/mail/?view=cm&fs=1&to=ZacharyRuiz.DA@gmail.com">
+         ZacharyRuiz.DA@gmail.com
       </a>
-      <div class="nav-links" aria-label="Main navigation">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
-      </div>
+
+      <a class="btn btn-secondary"
+         href="https://www.linkedin.com/"
+         target="_blank">
+         LinkedIn Profile
+      </a>
+
     </div>
-  </nav>
 
-  <main id="home">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div class="eyebrow"><span class="pulse"></span> Data Analytics Portfolio</div>
-          <h1>Turning operations experience into <span class="gradient-text">data-driven decisions.</span></h1>
-          <p>
-            I’m an operations-focused professional moving into data analytics after 10+ years of leading teams,
-            managing high-volume workflows, controlling costs, and using performance numbers to make better business decisions.
-          </p>
-          <div class="buttons">
-            <a class="button primary" href="#projects">View Projects</a>
-            <a class="button secondary" href="mailto:ZacharyRuiz.DA@gmail.com">Email Me</a>
-            <a class="button secondary" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
-          </div>
-          <p>
-            Recently completed the Google Data Analytics Certificate through Merit America, with hands-on practice in
-            spreadsheets, SQL, data cleaning, visualization, and business reporting.
-          </p>
-        </div>
+  </div>
+</section>
 
-        <aside class="hero-card" aria-label="Profile summary">
-          <div class="profile-circle"></div>
-          <p class="profile-note">
-            Add your headshot by uploading a file named <strong>headshot.jpg</strong> to this same GitHub folder.
-          </p>
-          <div class="stats">
-            <div class="stat">
-              <strong>10+ Years</strong>
-              <span>Operations and leadership experience</span>
-            </div>
-            <div class="stat">
-              <strong>Data Analytics</strong>
-              <span>SQL, Excel, dashboards, reporting</span>
-            </div>
-            <div class="stat">
-              <strong>Business Mindset</strong>
-              <span>Cost control, inventory, labor, KPIs</span>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
+<footer>
+  Built by Zachary Ruiz • Data Analytics Portfolio
+</footer>
 
-    <section id="about">
-      <div class="container about-grid">
-        <div class="about-panel">
-          <div class="section-heading">
-            <h2>About Me</h2>
-            <p>Professional introduction for employers and coaches.</p>
-          </div>
-          <p>
-            My background is in food service operations, where I learned how important accurate information is when
-            making daily business decisions. I have experience managing labor, inventory, budgets, food costs,
-            high-volume service, and team performance.
-          </p>
-          <p>
-            As I transition into data analytics, I’m focused on combining my real-world operations experience with
-            technical skills like SQL, Excel, data cleaning, visualization, and reporting. My goal is to help businesses
-            understand their numbers, find trends, and make smarter decisions.
-          </p>
-        </div>
-
-        <div class="about-panel">
-          <div class="timeline">
-            <div class="timeline-item">
-              <strong>Operations Leadership</strong>
-              <span>Managed fast-paced teams, daily workflows, inventory needs, and service standards.</span>
-            </div>
-            <div class="timeline-item">
-              <strong>Business Analysis</strong>
-              <span>Worked with costs, volume, labor, and performance metrics to support better decisions.</span>
-            </div>
-            <div class="timeline-item">
-              <strong>Analytics Training</strong>
-              <span>Completed Google Data Analytics Certificate coursework through Merit America.</span>
-            </div>
-            <div class="timeline-item">
-              <strong>Next Goal</strong>
-              <span>Build a career in data analytics, business reporting, or operations analytics.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="projects">
-      <div class="container">
-        <div class="section-heading">
-          <h2>Projects</h2>
-          <p>
-            These project cards are ready for your Merit America submission. As you complete projects, replace
-            “Coming Soon” with the project summary, tools used, and key insights.
-          </p>
-        </div>
-
-        <div class="cards">
-          <article class="card">
-            <span class="tag">Coming Soon</span>
-            <h3>SQL Project</h3>
-            <p>
-              A future project showing how I use SQL to pull, filter, join, and analyze data to answer business questions.
-            </p>
-          </article>
-
-          <article class="card">
-            <span class="tag">Coming Soon</span>
-            <h3>Capstone Project</h3>
-            <p>
-              A future end-to-end analysis project highlighting the full data process from question to recommendation.
-            </p>
-          </article>
-
-          <article class="card">
-            <span class="tag">Coming Soon</span>
-            <h3>Excel Project</h3>
-            <p>
-              A future spreadsheet project showing cleaning, formulas, pivot tables, charts, and business reporting.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="skills">
-      <div class="container">
-        <div class="section-heading">
-          <h2>Skills</h2>
-          <p>A mix of technical analytics tools and real-world business experience.</p>
-        </div>
-
-        <div class="skills">
-          <span class="skill">Excel</span>
-          <span class="skill">SQL</span>
-          <span class="skill">Data Cleaning</span>
-          <span class="skill">Data Visualization</span>
-          <span class="skill">Business Reporting</span>
-          <span class="skill">Operations Analysis</span>
-          <span class="skill">Cost Control</span>
-          <span class="skill">Inventory Management</span>
-          <span class="skill">KPI Tracking</span>
-          <span class="skill">Team Leadership</span>
-          <span class="skill">Problem Solving</span>
-          <span class="skill">Process Improvement</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact">
-      <div class="container">
-        <div class="contact">
-          <h2>Let’s Connect</h2>
-          <p>
-            I’m open to entry-level data analytics, business analyst, reporting analyst, and operations analyst opportunities.
-          </p>
-          <div class="buttons" style="justify-content: center;">
-            <a class="button primary" href="mailto:ZacharyRuiz.DA@gmail.com">ZacharyRuiz.DA@gmail.com</a>
-            <a class="button secondary" href="https://www.linkedin.com/in/zachary-ruiz-da/" target="_blank" rel="noopener">LinkedIn Profile</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      Built by Zachary Ruiz • Data Analytics Portfolio
-    </div>
-  </footer>
 </body>
 </html>
